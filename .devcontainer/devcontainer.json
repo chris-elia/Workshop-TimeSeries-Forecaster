@@ -1,0 +1,5 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/3.8-buster",
+  "features": {
+  }
+}
