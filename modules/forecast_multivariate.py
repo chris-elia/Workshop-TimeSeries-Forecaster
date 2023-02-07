@@ -64,7 +64,7 @@ def prepare_data_for_mv_fc(dataset, start_date, end_date, solar, wind, temp, lat
     df_weather = get_weather_forecast(start_date, end_date, latitude, longitude)
     columns = []
     if solar:
-        columns.append("SolarDownwardRadiation")
+        columns.append("CloudCover")
     if wind:  
         columns.append("WindSpeed")
     if temp:

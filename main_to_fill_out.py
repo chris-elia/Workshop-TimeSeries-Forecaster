@@ -35,7 +35,6 @@ You can choose between univariate and multivariate forecasting:
 **Example:** If you have a PV system on-site, experiment with adding solar radiation as a feature. It could improve the forecast, as you will consume less energy from the grid when the sun is shining. This correlation can be represented by the additional sun radiation feature.  
 """
 
-
 forecast_model = st.radio(
      "Select your forecasting method:",
      ('Univariate', 'Multivariate'))
@@ -45,11 +44,9 @@ st.markdown(
     Select the data from the Elia grid to forecast."""
     )
 
-options = ["Total Load","PV production","Wind production" ]
-option = st.selectbox(
-        'Select the data',
-            (options)
-            )
+ # add a input field that allows you to select ["Total Load","PV production","Wind production"] and stores it in a variable called  "option"
+
+## YOUR CODE HERE ##
 
 
 """
@@ -65,7 +62,12 @@ col1, col2 = st.columns(2)
 
 # Two sliders to select historical data and forecast horizon
 no_days = col1.slider("Historical data in days.", min_value=1, max_value=14 )
-button_periods_to_predict = col2.slider("Forecast Horizon in days", min_value = 1, max_value = 7 )
+
+# add another slide that select the "Forecast Horizon in days" and stores it in a variable called "button_periods_to_predict"
+
+## YOUR CODE HERE ##
+
+
 no_of_hours_to_predict = button_periods_to_predict *24
 
 # Initiliazing empty variables
@@ -80,8 +82,7 @@ df = pd.DataFrame()
 # specifying date
 end_date_hist = datetime.now()
 start_date_hist = end_date_hist - timedelta(days = no_days)
-print(f'the end date ist: {end_date_hist}')
-print(f'the start date ist: {start_date_hist}')
+
 # datasets to catch external data from rebase
 dataset_solar = "ods032"
 dataset_load = "ods003"
@@ -98,7 +99,7 @@ if forecast_model == "Multivariate":
     """
     add_regressors = st.multiselect(
         "Select the additional parameters for the forecast. At least, one has to be selected.",
-        options = ["Cloud Cover", "Wind Speed", "Temperature"])
+        options = ["Sun Radiation", "Wind Speed", "Temperature"])
 
     if  not add_regressors:
         st.markdown("**Please select at least one additional parameter.**")
@@ -146,7 +147,7 @@ if (forecast_model == "Multivariate") and calc_start:
         lat = "50.85045"
         long= "4.34878"
 
-        with st.spinner("The forecast is now being calculated."):
+        with st.spinner("The forecast is being calculated."):
 
             if option == "PV production": 
                 df_merged = prepare_data_for_mv_fc(dataset_solar, start_date_hist, end_date_hist, solar, wind, temp, lat,long)
@@ -190,14 +191,18 @@ if forecast_ready:
     #### Forecast Plot
     """
 
-    st.write(fig_forecast)
-    forecast.rename(columns={"ds":"datetime"}, inplace = True)
+    # Plot the variable "fig_forecast"
+    ## YOUR CODE HERE ##
 
-    # selection of the most important columns of forecast dataframe to display
-    st.write(forecast.loc[:,["datetime","yhat","yhat_lower","yhat_upper"]])
-    st.markdown("#### Components Plot")
-    st.write(fig_comp)
+    # make a selection of the most import columns fo the "forecast" dataframe and display them in a table (and rename column "ds" to "datetime")
+    ## YOUR CODE HERE ##
 
+    # add a heading "Components Plot"
+    ## YOUR CODE HERE ##
+
+    # plot the variable fig_components plot
+    ## YOUR CODE HERE ##
+    
     if reg_coef is not None:
 
         """

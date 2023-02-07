@@ -66,19 +66,20 @@ def get_weather_forecast(start_date, end_date, latitude, longitude):
     url = "https://api.rebase.energy/weather/v2/query"
     headers = {"Authorization": st.secrets["REBASE_KEY"]}
     params = {
-        'model': 'FMI_HIRLAM',
+        'model': 'DWD_ICON-EU',
         'start-date': start_date,
         'end-date': end_date,
         'reference-time-freq': '24H',
         'forecast-horizon': 'latest',
         'latitude': latitude,
         'longitude': longitude,
-        'variables': 'Temperature, WindSpeed, SolarDownwardRadiation'
+        'variables': 'Temperature, WindSpeed, CloudCover'
     }
     response = requests.get(url, headers=headers, params=params)
-
+    
     # Clean data
     df = pd.DataFrame(response.json())
+    print(df)
     df = df.drop('ref_datetime', axis=1)
     df["valid_datetime"] = pd.to_datetime(df["valid_datetime"]).dt.tz_localize(None)
 

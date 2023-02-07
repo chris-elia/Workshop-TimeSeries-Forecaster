@@ -1,6 +1,6 @@
 def check_regressors(add_regressors): 
 
-    if "Sun Radiation" in add_regressors:
+    if "Cloud Cover" in add_regressors:
         solar = True
     else:
         solar = False
